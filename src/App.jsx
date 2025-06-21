@@ -12,6 +12,11 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import StudentDashboard from './pages/StudentDashboard'
 import TutorDashboard from './pages/TutorDashboard'
+import Messages from './pages/Messages'
+import MyBookings from './pages/MyBookings'
+import ReviewsFeedback from './pages/ReviewsFeedback'
+import Settings from './pages/Settings'
+import FindTutors from './pages/FindTutors'
 
 // Mock data for tutors
 const tutorsData = [
@@ -582,10 +587,14 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/tutor-dashboard" element={<TutorDashboard />} />
-            <Route path="/tutors" element={<TutorsList />} />
+            <Route path="/tutors" element={<FindTutors />} />
             <Route path="/tutor/:id" element={<TutorProfile />} />
             <Route path="/payment/:id" element={<PaymentForm />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/my-bookings" element={<MyBookings />} />
+            <Route path="/reviews-feedback" element={<ReviewsFeedback />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
         <Footer />

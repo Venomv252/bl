@@ -1,9 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './StudentDashboard.module.css';
 import { Home, Search, Calendar, MessageCircle, Star, Settings, User, Users, Clock, DollarSign, ArrowRight, Mail, BookOpen } from 'lucide-react';
 import { NavLink, Link } from 'react-router-dom';
 
 const mockUser = JSON.parse(localStorage.getItem('user')) || { name: 'Aryan', type: 'student' };
+
+// Mapping of tutor names to their IDs for navigation
+const tutorNameToId = {
+  'Prof. Michael Chen': 2,
+  'Ms. Emily Rodriguez': 3,
+  'Dr. James Wilson': 4,
+  'Dr. Sarah Johnson': 1,
+  'Ms. Lisa Thompson': 5,
+  'Prof. David Kim': 6
+};
 
 const mockStats = {
   nextSession: {
@@ -71,14 +82,23 @@ const mockMessages = [
 
 const navItems = [
   { label: 'Home Overview', icon: <Home size={20} />, to: '/student-dashboard' },
-  { label: 'Find Tutors', icon: <Search size={20} />, to: '/find-tutors' },
+  { label: 'Find Tutors', icon: <Search size={20} />, to: '/tutors' },
   { label: 'My Bookings', icon: <Calendar size={20} />, to: '/my-bookings' },
   { label: 'Messages', icon: <MessageCircle size={20} />, to: '/messages' },
-  { label: 'Reviews & Feedback', icon: <Star size={20} />, to: '/reviews' },
+  { label: 'Reviews & Feedback', icon: <Star size={20} />, to: '/reviews-feedback' },
   { label: 'Settings', icon: <Settings size={20} />, to: '/settings' },
 ];
 
 const StudentDashboard = () => {
+  const navigate = useNavigate();
+
+  const handleViewProfile = (tutorName) => {
+    const tutorId = tutorNameToId[tutorName];
+    if (tutorId) {
+      navigate(`/tutor/${tutorId}`);
+    }
+  };
+
   return (
     <div className={styles.dashboardRoot}>
       {/* Sidebar */}
@@ -147,9 +167,35 @@ const StudentDashboard = () => {
                   <div className={styles.tutorName}>{tutor.name}</div>
                   <div className={styles.tutorSubject}>{tutor.subject}</div>
                   <div className={styles.tutorRating}><Star size={16} /> {tutor.rating}</div>
-                  <button className={styles.tutorBtn}>View Profile</button>
+                  <button 
+                    className={styles.tutorBtn}
+                    onClick={() => handleViewProfile(tutor.name)}
+                  >
+                    View Profile
+                  </button>
                 </div>
               ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+              <button 
+                className={styles.tutorBtn}
+                onClick={() => navigate('/tutors')}
+                style={{ 
+                  background: '#2563eb', 
+                  color: '#fff', 
+                  border: 'none',
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '0.5rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'background 0.2s'
+                }}
+                onMouseOver={(e) => e.target.style.background = '#1d4ed8'}
+                onMouseOut={(e) => e.target.style.background = '#2563eb'}
+              >
+                <Search size={16} style={{ marginRight: '0.5rem' }} />
+                Find More Tutors
+              </button>
             </div>
           </div>
         </div>
