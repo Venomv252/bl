@@ -212,62 +212,7 @@ const Messages = () => {
   };
 
   return (
-    <div className={styles.messagesRoot}>
-      {/* Left Sidebar */}
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
-          <h2 className={styles.sidebarTitle}>Messages</h2>
-        </div>
-        
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            placeholder="Search conversations..."
-            className={styles.searchInput}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        
-        <div className={styles.conversationList}>
-          {filteredConversations.map(conversation => (
-            <div
-              key={conversation.id}
-              className={`${styles.conversationItem} ${
-                selectedConversation?.id === conversation.id ? styles.active : ''
-              }`}
-              onClick={() => setSelectedConversation(conversation)}
-            >
-              <img
-                src={conversation.avatar}
-                alt={conversation.tutor}
-                className={styles.conversationAvatar}
-              />
-              <div className={styles.conversationContent}>
-                <div className={styles.conversationName}>
-                  {conversation.tutor}
-                  {conversation.online && (
-                    <span style={{ 
-                      width: 8, 
-                      height: 8, 
-                      background: '#10b981', 
-                      borderRadius: '50%', 
-                      display: 'inline-block', 
-                      marginLeft: 8 
-                    }} />
-                  )}
-                </div>
-                <div className={styles.conversationPreview}>{conversation.lastMessage}</div>
-                <div className={styles.conversationTime}>{conversation.lastTime}</div>
-              </div>
-              {conversation.unread > 0 && (
-                <div className={styles.unreadBadge}>{conversation.unread}</div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
+    <>
       {/* Main Chat Window */}
       <div className={styles.mainChat}>
         {selectedConversation ? (
@@ -359,7 +304,7 @@ const Messages = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

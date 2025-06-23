@@ -100,144 +100,113 @@ const StudentDashboard = () => {
   };
 
   return (
-    <div className={styles.dashboardRoot}>
-      {/* Sidebar */}
-      <aside className={styles.sidebar}>
-        <Link to="/" className={styles.sidebarHeader} style={{ textDecoration: 'none', outline: 'none' }} tabIndex={0}>
-          <BookOpen size={28} />
-          BrightLearn
-        </Link>
-        <nav className={styles.sidebarNav}>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.to}
-              className={({ isActive }) =>
-                `${styles.sidebarNavItem} ${isActive ? styles.sidebarNavItemActive : ''}`
-              }
-              end={item.to === '/student-dashboard'}
+    <>
+      <div className={styles.dashboardHeader}>
+        Welcome back, {mockUser.name}! Here's your overview.
+      </div>
+      <div className={styles.dashboardGrid}>
+        {/* Quick Stats */}
+        <div className={`${styles.card} ${styles.quickStats}`}>
+          <div className={styles.statRow}>
+            <span className={styles.statLabel}>Next Scheduled Session</span>
+            <span>
+              {mockStats.nextSession.date} at {mockStats.nextSession.time} <br />
+              with {mockStats.nextSession.tutor} ({mockStats.nextSession.subject})
+              <button className={styles.sessionBtn} style={{ marginLeft: 12 }}>View Details</button>
+            </span>
+          </div>
+          <div className={styles.statRow}>
+            <span className={styles.statLabel}>Total Tutors Contacted</span>
+            <span><Users size={18} style={{ marginRight: 4 }} /> {mockStats.totalTutors}</span>
+          </div>
+          <div className={styles.statRow}>
+            <span className={styles.statLabel}>Pending Payments</span>
+            <span style={{ color: mockStats.pendingPayments ? '#dc2626' : '#059669', fontWeight: 700 }}>
+              <DollarSign size={18} style={{ marginRight: 4 }} />
+              {mockStats.pendingPayments ? `${mockStats.pendingPayments} Pending` : 'None'}
+            </span>
+          </div>
+        </div>
+        {/* Suggested Tutors */}
+        <div className={`${styles.card} ${styles.suggestedTutors}`}>
+          <div style={{ fontWeight: 700, color: '#2563eb', fontSize: '1.1rem', marginBottom: 8 }}>Suggested Tutors</div>
+          <div className={styles.tutorGrid}>
+            {mockSuggestedTutors.map(tutor => (
+              <div className={styles.tutorCard} key={tutor.name}>
+                <img src={tutor.image} alt={tutor.name} className={styles.tutorAvatar} />
+                <div className={styles.tutorName}>{tutor.name}</div>
+                <div className={styles.tutorSubject}>{tutor.subject}</div>
+                <div className={styles.tutorRating}><Star size={16} /> {tutor.rating}</div>
+                <button 
+                  className={styles.tutorBtn}
+                  onClick={() => handleViewProfile(tutor.name)}
+                >
+                  View Profile
+                </button>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <button 
+              className={styles.tutorBtn}
+              onClick={() => navigate('/tutors')}
+              style={{ 
+                background: '#2563eb', 
+                color: '#fff', 
+                border: 'none',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.5rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
+              onMouseOver={(e) => e.target.style.background = '#1d4ed8'}
+              onMouseOut={(e) => e.target.style.background = '#2563eb'}
             >
-              {item.icon}
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-        <div className={styles.profileSection}>
-          <div className={styles.profileAvatar}>
-            {mockUser.name ? mockUser.name.charAt(0).toUpperCase() : <User size={20} />}
-          </div>
-          <span className={styles.profileName}>{mockUser.name}</span>
-        </div>
-      </aside>
-      {/* Main Content */}
-      <main className={styles.mainContent}>
-        <div className={styles.dashboardHeader}>
-          Welcome back, {mockUser.name}! Here's your overview.
-        </div>
-        <div className={styles.dashboardGrid}>
-          {/* Quick Stats */}
-          <div className={`${styles.card} ${styles.quickStats}`}>
-            <div className={styles.statRow}>
-              <span className={styles.statLabel}>Next Scheduled Session</span>
-              <span>
-                {mockStats.nextSession.date} at {mockStats.nextSession.time} <br />
-                with {mockStats.nextSession.tutor} ({mockStats.nextSession.subject})
-                <button className={styles.sessionBtn} style={{ marginLeft: 12 }}>View Details</button>
-              </span>
-            </div>
-            <div className={styles.statRow}>
-              <span className={styles.statLabel}>Total Tutors Contacted</span>
-              <span><Users size={18} style={{ marginRight: 4 }} /> {mockStats.totalTutors}</span>
-            </div>
-            <div className={styles.statRow}>
-              <span className={styles.statLabel}>Pending Payments</span>
-              <span style={{ color: mockStats.pendingPayments ? '#dc2626' : '#059669', fontWeight: 700 }}>
-                <DollarSign size={18} style={{ marginRight: 4 }} />
-                {mockStats.pendingPayments ? `${mockStats.pendingPayments} Pending` : 'None'}
-              </span>
-            </div>
-          </div>
-          {/* Suggested Tutors */}
-          <div className={`${styles.card} ${styles.suggestedTutors}`}>
-            <div style={{ fontWeight: 700, color: '#2563eb', fontSize: '1.1rem', marginBottom: 8 }}>Suggested Tutors</div>
-            <div className={styles.tutorGrid}>
-              {mockSuggestedTutors.map(tutor => (
-                <div className={styles.tutorCard} key={tutor.name}>
-                  <img src={tutor.image} alt={tutor.name} className={styles.tutorAvatar} />
-                  <div className={styles.tutorName}>{tutor.name}</div>
-                  <div className={styles.tutorSubject}>{tutor.subject}</div>
-                  <div className={styles.tutorRating}><Star size={16} /> {tutor.rating}</div>
-                  <button 
-                    className={styles.tutorBtn}
-                    onClick={() => handleViewProfile(tutor.name)}
-                  >
-                    View Profile
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-              <button 
-                className={styles.tutorBtn}
-                onClick={() => navigate('/tutors')}
-                style={{ 
-                  background: '#2563eb', 
-                  color: '#fff', 
-                  border: 'none',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '0.5rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'background 0.2s'
-                }}
-                onMouseOver={(e) => e.target.style.background = '#1d4ed8'}
-                onMouseOut={(e) => e.target.style.background = '#2563eb'}
-              >
-                <Search size={16} style={{ marginRight: '0.5rem' }} />
-                Find More Tutors
-              </button>
-            </div>
+              <Search size={16} style={{ marginRight: '0.5rem' }} />
+              Find More Tutors
+            </button>
           </div>
         </div>
-        {/* Upcoming Sessions */}
-        <div className={`${styles.card} ${styles.upcomingSessions}`}>
-          <div style={{ fontWeight: 700, color: '#2563eb', fontSize: '1.1rem', marginBottom: 8 }}>Upcoming Sessions</div>
-          {mockSessions.map(session => (
-            <div className={styles.sessionRow} key={session.date + session.time}>
-              <div className={styles.sessionTutor}>
-                <img src={session.image} alt={session.tutor} className={styles.sessionAvatar} />
-                <div>
-                  <div style={{ fontWeight: 600 }}>{session.tutor}</div>
-                  <div style={{ fontSize: '0.95rem', color: '#64748b' }}>{session.subject}</div>
-                  <div style={{ fontSize: '0.95rem', color: '#64748b' }}>{session.date} at {session.time}</div>
-                </div>
-              </div>
-              <div className={styles.sessionActions}>
-                <button className={styles.sessionBtn}>Cancel</button>
-                <button className={styles.sessionBtn}>Reschedule</button>
+      </div>
+      {/* Upcoming Sessions */}
+      <div className={`${styles.card} ${styles.upcomingSessions}`}>
+        <div style={{ fontWeight: 700, color: '#2563eb', fontSize: '1.1rem', marginBottom: 8 }}>Upcoming Sessions</div>
+        {mockSessions.map(session => (
+          <div className={styles.sessionRow} key={session.date + session.time}>
+            <div className={styles.sessionTutor}>
+              <img src={session.image} alt={session.tutor} className={styles.sessionAvatar} />
+              <div>
+                <div style={{ fontWeight: 600 }}>{session.tutor}</div>
+                <div style={{ fontSize: '0.95rem', color: '#64748b' }}>{session.subject}</div>
+                <div style={{ fontSize: '0.95rem', color: '#64748b' }}>{session.date} at {session.time}</div>
               </div>
             </div>
-          ))}
-        </div>
-        {/* Messages Preview */}
-        <div className={`${styles.card} ${styles.messagesPreview}`}>
-          <div style={{ fontWeight: 700, color: '#2563eb', fontSize: '1.1rem', marginBottom: 8 }}>Messages Preview</div>
-          {mockMessages.map(msg => (
-            <div className={styles.messageRow} key={msg.tutor}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <img src={msg.image} alt={msg.tutor} className={styles.sessionAvatar} />
-                <div>
-                  <div style={{ fontWeight: 600 }}>{msg.tutor}</div>
-                  <div style={{ fontSize: '0.95rem', color: '#64748b' }}>{msg.lastMessage}</div>
-                </div>
-              </div>
-              {msg.unread > 0 && <div className={styles.messageUnread}>{msg.unread}</div>}
-              <ArrowRight size={18} style={{ color: '#2563eb' }} />
+            <div className={styles.sessionActions}>
+              <button className={styles.sessionBtn}>Cancel</button>
+              <button className={styles.sessionBtn}>Reschedule</button>
             </div>
-          ))}
-        </div>
-      </main>
-    </div>
+          </div>
+        ))}
+      </div>
+      {/* Messages Preview */}
+      <div className={`${styles.card} ${styles.messagesPreview}`}>
+        <div style={{ fontWeight: 700, color: '#2563eb', fontSize: '1.1rem', marginBottom: 8 }}>Messages Preview</div>
+        {mockMessages.map(msg => (
+          <div className={styles.messageRow} key={msg.tutor}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <img src={msg.image} alt={msg.tutor} className={styles.sessionAvatar} />
+              <div>
+                <div style={{ fontWeight: 600 }}>{msg.tutor}</div>
+                <div style={{ fontSize: '0.95rem', color: '#64748b' }}>{msg.lastMessage}</div>
+              </div>
+            </div>
+            {msg.unread > 0 && <div className={styles.messageUnread}>{msg.unread}</div>}
+            <ArrowRight size={18} style={{ color: '#2563eb' }} />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

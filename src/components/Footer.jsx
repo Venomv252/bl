@@ -20,8 +20,10 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-section">
             <div className="logo">
-              <BookOpen className="logo-icon" />
-              <span>BrightLearn</span>
+              <Link to="/" tabIndex={0} style={{ textDecoration: 'none', color: 'inherit', outline: 'none', boxShadow: 'none', transition: 'none' }}>
+                <BookOpen className="logo-icon" />
+                <span>BrightLearn</span>
+              </Link>
             </div>
             <p>Connecting students with expert tutors for personalized learning experiences.</p>
             <div className="social-links">
@@ -50,9 +52,10 @@ const Footer = () => {
           </div>
           <div className="footer-section">
             <h4>Contact</h4>
-            <p>📧 info@brightlearn.com</p>
-            <p>📞 +1 (555) 123-4567</p>
-            <p>📍 123 Learning St, Education City</p>
+            <p>📧 <a href="mailto:yugayatra@gmail.com" style={{ color: '#2563eb', textDecoration: 'underline' }}>yugayatra@gmail.com</a></p>
+            <p>📞 <a href="tel:+918757728679" style={{ color: '#2563eb', textDecoration: 'underline' }}>+91 8757728679</a></p>
+            <p>📍 Electronic City, Phase 1,</p>
+            <p style={{ marginLeft: '1.5rem' }}>Bengaluru, Karnataka, India</p>
           </div>
         </div>
         <div className="footer-bottom">

@@ -18,6 +18,7 @@ import MyBookings from './pages/student/MyBookings'
 import ReviewsFeedback from './pages/student/ReviewsFeedback'
 import Settings from './pages/student/Settings'
 import FindTutors from './pages/student/FindTutors'
+import StudentLayout from './pages/student/StudentLayout'
 
 // Mock data for tutors
 const tutorsData = [
@@ -580,23 +581,26 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-          <Hero />
-          <About />
+                <Hero />
+                <About />
               </>
             } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/tutor-signup" element={<TutorSignUp />} />
-            <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/tutor-dashboard" element={<TutorDashboard />} />
-            <Route path="/tutors" element={<FindTutors />} />
             <Route path="/tutor/:id" element={<TutorProfile />} />
             <Route path="/payment/:id" element={<PaymentForm />} />
             <Route path="/success" element={<SuccessPage />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/my-bookings" element={<MyBookings />} />
-            <Route path="/reviews-feedback" element={<ReviewsFeedback />} />
-            <Route path="/settings" element={<Settings />} />
+            {/* Student Dashboard Layout with nested routes */}
+            <Route element={<StudentLayout />}>
+              <Route path="/student-dashboard" element={<StudentDashboard />} />
+              <Route path="/tutors" element={<FindTutors />} />
+              <Route path="/my-bookings" element={<MyBookings />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/reviews-feedback" element={<ReviewsFeedback />} />
+              <Route path="/settings" element={<Settings />} />
+            </Route>
           </Routes>
         </main>
         <Footer />

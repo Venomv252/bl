@@ -106,6 +106,15 @@ const languages = [
   { value: 'zh', label: 'Chinese' }
 ];
 
+const settingsTabs = [
+  { id: 'account', label: 'Account Settings', icon: <User size={20} /> },
+  { id: 'payment', label: 'Payment Methods', icon: <CreditCard size={20} /> },
+  { id: 'notifications', label: 'Notifications', icon: <Bell size={20} /> },
+  { id: 'privacy', label: 'Privacy & Security', icon: <Shield size={20} /> },
+  { id: 'appearance', label: 'Appearance', icon: <Palette size={20} /> },
+  { id: 'help', label: 'Help & Support', icon: <HelpCircle size={20} /> }
+];
+
 const Settings = () => {
   const [activeTab, setActiveTab] = useState('account');
   const [userData, setUserData] = useState(mockUser);
@@ -203,15 +212,6 @@ const Settings = () => {
     setPasswordData(prev => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const navItems = [
-    { id: 'account', label: 'Account', icon: <User size={20} /> },
-    { id: 'payment', label: 'Payment', icon: <CreditCard size={20} /> },
-    { id: 'notifications', label: 'Notifications', icon: <Bell size={20} /> },
-    { id: 'preferences', label: 'Preferences', icon: <SettingsIcon size={20} /> },
-    { id: 'security', label: 'Security', icon: <Shield size={20} /> },
-    { id: 'help', label: 'Help & Support', icon: <HelpCircle size={20} /> }
-  ];
-
   return (
     <div className={styles.settingsRoot}>
       <div className={styles.container}>
@@ -223,17 +223,17 @@ const Settings = () => {
 
         {/* Settings Layout */}
         <div className={styles.settingsLayout}>
-          {/* Sidebar Navigation */}
+          {/* Settings Sidebar */}
           <aside className={styles.sidebar}>
             <nav className={styles.sidebarNav}>
-              {navItems.map((item) => (
+              {settingsTabs.map(tab => (
                 <button
-                  key={item.id}
-                  className={`${styles.sidebarItem} ${activeTab === item.id ? styles.active : ''}`}
-                  onClick={() => setActiveTab(item.id)}
+                  key={tab.id}
+                  className={`${styles.sidebarItem} ${activeTab === tab.id ? styles.active : ''}`}
+                  onClick={() => setActiveTab(tab.id)}
                 >
-                  {item.icon}
-                  {item.label}
+                  {tab.icon}
+                  {tab.label}
                 </button>
               ))}
             </nav>
@@ -473,7 +473,7 @@ const Settings = () => {
             </div>
 
             {/* Preferences & Privacy */}
-            <div className={`${styles.tabContent} ${activeTab === 'preferences' ? styles.active : ''}`}>
+            <div className={`${styles.tabContent} ${activeTab === 'privacy' ? styles.active : ''}`}>
               <h2 className={styles.sectionTitle}>Preferences & Privacy</h2>
               <p className={styles.sectionSubtitle}>Customize your experience and manage privacy settings</p>
 
@@ -552,7 +552,7 @@ const Settings = () => {
             </div>
 
             {/* Security */}
-            <div className={`${styles.tabContent} ${activeTab === 'security' ? styles.active : ''}`}>
+            <div className={`${styles.tabContent} ${activeTab === 'appearance' ? styles.active : ''}`}>
               <h2 className={styles.sectionTitle}>Security Settings</h2>
               <p className={styles.sectionSubtitle}>Enhance your account security</p>
 

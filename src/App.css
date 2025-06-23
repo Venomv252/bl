@@ -1429,3 +1429,44 @@ html {
     max-width: 100%;
   }
 }
+
+/* Remove focus style from all .footer a */
+.footer a {
+  outline: revert;
+  box-shadow: revert;
+  transition: box-shadow 0.2s;
+}
+
+/* Apply custom focus style only to contact and social links */
+.footer-section a,
+.social-links a {
+  outline: none;
+  box-shadow: none;
+  transition: box-shadow 0.2s;
+}
+.footer-section a:focus,
+.social-links a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #2563eb33;
+  border-radius: 4px;
+}
+
+.footer .logo a {
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+  background: none !important;
+  opacity: 1 !important;
+}
+.footer .logo a:hover,
+.footer .logo a:focus,
+.footer .logo a:active {
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  opacity: 1 !important;
+}
