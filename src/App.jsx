@@ -10,6 +10,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Login from './pages/auth/Login'
 import SignUp from './pages/auth/SignUp'
+import TutorSignUp from './pages/auth/TutorSignUp'
 import StudentDashboard from './pages/student/StudentDashboard'
 import TutorDashboard from './pages/tutor/TutorDashboard'
 import Messages from './pages/student/StudentMessages'
@@ -234,11 +235,11 @@ const TutorCard = ({ tutor }) => {
           <span><Clock size={16} /> {tutor.experience} exp</span>
           <span><Users size={16} /> {tutor.students} students</span>
           <span><DollarSign size={16} /> ${tutor.hourlyRate}/hr</span>
-        </div>
+              </div>
         <div className="tutor-location">
           <MapPin size={16} />
           <span>{tutor.location}</span>
-        </div>
+            </div>
         <div className="tutor-footer">
           <span className="enrollment-fee">Enrollment: ${tutor.enrollmentFee}</span>
           <button 
@@ -296,7 +297,7 @@ const TutorProfile = () => {
                   <h3>{tutor.students}</h3>
                   <p>Students</p>
                 </div>
-              </div>
+        </div>
               <div className="stat">
                 <Clock className="stat-icon" />
                 <div>
@@ -528,8 +529,8 @@ const PaymentForm = () => {
                     placeholder="123"
                   />
                   {errors.cvv && <span className="error">{errors.cvv.message}</span>}
-                </div>
-              </div>
+            </div>
+          </div>
 
               <button type="submit" className="btn btn-primary btn-large">
                 <CreditCard size={20} />
@@ -579,12 +580,13 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-                <Hero />
-                <About />
+          <Hero />
+          <About />
               </>
             } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/tutor-signup" element={<TutorSignUp />} />
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/tutor-dashboard" element={<TutorDashboard />} />
             <Route path="/tutors" element={<FindTutors />} />

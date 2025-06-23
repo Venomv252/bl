@@ -41,6 +41,8 @@ import {
 import styles from './TutorDashboard.module.css';
 import TutorMessages from './TutorMessages';
 import TutorSessions from './TutorSessions';
+import TutorEarnings from '../../components/TutorEarnings.jsx';
+import TutorReviews from '../../components/TutorReviews.jsx';
 
 const mockUser = JSON.parse(localStorage.getItem('user')) || { 
   name: 'Dr. Sarah Johnson', 
@@ -1665,13 +1667,11 @@ const TutorDashboard = () => {
           </div>
 
           <div className={`${styles.tabContent} ${activeTab === 'earnings' ? styles.active : ''}`}>
-            <div className={styles.dashboardHeader}>Earnings & Payments</div>
-            <p>Earnings and payment interface would go here...</p>
+            <TutorEarnings />
           </div>
 
           <div className={`${styles.tabContent} ${activeTab === 'reviews' ? styles.active : ''}`}>
-            <div className={styles.dashboardHeader}>Reviews & Feedback</div>
-            <p>Reviews and feedback interface would go here...</p>
+            <TutorReviews />
           </div>
         </main>
       </div>
